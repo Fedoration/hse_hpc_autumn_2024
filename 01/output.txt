@@ -1,0 +1,70 @@
+Lmod has detected the following error: The following module(s) are unknown:
+"gcc"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "gcc"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Removing tbb version 2021.7.1
+Use `module list` to view any remaining dependent modules.
+Removing compiler-rt version 2022.2.1
+Use `module list` to view any remaining dependent modules.
+Removing mkl version 2022.2.1
+Use `module list` to view any remaining dependent modules.
+Loading tbb version 2021.7.1
+Loading compiler-rt version 2022.2.1
+Loading mkl version 2022.2.1
+Removing mkl version 2022.2.1
+Use `module list` to view any remaining dependent modules.
+Loading mkl version 2022.2.1
+g++ gemm_laputin.cpp bench_blas.cpp -o bench_blas.o -fopenmp -lopenblas
+g++ gemm_laputin.cpp bench_mkl.cpp -o bench_mkl.o -fopenmp -L/opt/intel/mkl/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lpthread -lm -ldl -I/opt/intel/mkl/include
+g++ gemm_laputin.cpp bench_custom_parallel.cpp -o bench_custom_parallel.o -fopenmp -lopenblas 
+OMP_NUM_THREADS=24 ./bench_blas.o
+Время выполенения последовательной версии: 3.10161
+Время выполенения параллельной версии: 0.317003
+Время выполенения OpenBlas версии: 0.0208483
+Результаты совпадают! C_parallel
+Результаты совпадают! C_blas
+OMP_NUM_THREADS=24 ./bench_mkl.o
+Время выполенения последовательной версии: 3.23688
+Время выполенения параллельной версии: 0.262874
+Время выполенения MKL версии: 0.0490882
+Результаты совпадают! C_parallel
+Результаты совпадают! C_mkl
+OMP_NUM_THREADS=24 ./bench_custom_parallel.o
+Время выполенения последовательной версии: 3.20315
+Время выполенения параллельной версии: 0.25211
+Время выполенения OpenBlas версии: 0.00748453
+Время выполенения кастомной параллельной версии: 0.21587
+Результаты совпадают! C_parallel
+Результаты совпадают! C_blas
+Результаты совпадают! C_custom_parallel
+g++ gemm_laputin.cpp bench.cpp -o bench.o -fopenmp
+OMP_NUM_THREADS=24 ./bench.o
+Matrix size: 500x500
+Runtime 1/24 cores: 0.511998 seconds
+Runtime 2/24 cores: 0.312458 seconds
+Runtime 4/24 cores: 0.193691 seconds
+Runtime 8/24 cores: 0.113392 seconds
+Runtime 16/24 cores: 0.0652278 seconds
+----------------------------------
+Matrix size: 1000x1000
+Runtime 1/24 cores: 3.08596 seconds
+Runtime 2/24 cores: 1.61311 seconds
+Runtime 4/24 cores: 0.86638 seconds
+Runtime 8/24 cores: 0.475128 seconds
+Runtime 16/24 cores: 0.286023 seconds
+----------------------------------
+Matrix size: 1500x1500
+Runtime 1/24 cores: 13.4563 seconds
+Runtime 2/24 cores: 7.94229 seconds
+Runtime 4/24 cores: 4.20693 seconds
+Runtime 8/24 cores: 2.11961 seconds
+Runtime 16/24 cores: 1.06845 seconds
+----------------------------------
